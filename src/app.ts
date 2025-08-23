@@ -1,9 +1,23 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
+import { bookRoutes } from './app/controllers/book.controller';
 
 const app : Application = express();
 app.use(express.json());
 
-// app.use('/api/books')
+app.use('/api/books', bookRoutes);
+
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+    if(error){
+        const code = error?.status || 500;
+        const message = error?.message || 'Something went wrong';
+
+        res.status(code).json({
+            message: message,
+            success: false,
+            error: error
+        })
+    }
+})
 
 app.get('/', (req: Request, res: Response) => {
     res.send(`
