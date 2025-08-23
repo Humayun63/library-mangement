@@ -15,3 +15,19 @@ bookRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
         next(error);
     }
 });
+
+bookRoutes.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const body = req.body;
+
+        const book = await Book.create(body);
+
+        res.status(201).json({
+            success: true,
+            message: 'Book created successfully',
+            data: book,
+        })
+    } catch (error) {
+        next(error);
+    }
+})

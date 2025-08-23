@@ -12,7 +12,8 @@ const bookSchema = new Schema<IBook>({
     }, 
     isbn: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     genre: {
         type: String,
