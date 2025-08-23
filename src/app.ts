@@ -6,6 +6,19 @@ app.use(express.json());
 
 app.use('/api/books', bookRoutes);
 
+app.get('/', (req: Request, res: Response) => {
+    res.send(`
+        <h1>Welcome to my Library Management System</h1>
+        <p>
+            Please visit here for documentation: 
+            <a href="https://github.com/Humayun63/library-mangement" target="_blank">
+                GitHub Repository
+            </a>
+        </p>
+    `);
+})
+
+
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if(error){
         const code = error?.status || 500;
@@ -17,18 +30,6 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
             error: error
         })
     }
-})
-
-app.get('/', (req: Request, res: Response) => {
-    res.send(`
-        <h1>Welcome to my Library Management System</h1>
-        <p>
-            Please visit here for documentation: 
-            <a href="https://github.com/Humayun63/library-mangement" target="_blank">
-                GitHub Repository
-            </a>
-        </p>
-    `);
 })
 
 export default app;

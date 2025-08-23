@@ -5,11 +5,29 @@ export const bookRoutes = Router();
 
 bookRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const books = await Book.find();
+        const {
+            filter,
+            limit = 10,
+            sortBy,
+            sort = 'desc',
+        } = req.query;
+
+        const sortOptions: any = {}
+        const query: any = {}
+
+        if(filter) query.genre = filter;
+        if(sort) {
+            sortOptions[sortBy as string] =  sort
+        }
+
+        const books = await Book.find(query)
+            .sort(sortOptions)
+            .limit(parseInt(limit as string));
+
         res.status(200).json({
             success: true,
             message: "Books retrieved successfully",
-            data: books
+            data: books,
         })
     } catch(error) {
         next(error);
