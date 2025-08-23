@@ -1,2 +1,33 @@
 "use strict";
-console.log('so fr a os good');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const book_controller_1 = require("./app/controllers/book.controller");
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use('/api/books', book_controller_1.bookRoutes);
+app.get('/', (req, res) => {
+    res.send(`
+        <h1>Welcome to my Library Management System</h1>
+        <p>
+            Please visit here for documentation: 
+            <a href="https://github.com/Humayun63/library-mangement" target="_blank">
+                GitHub Repository
+            </a>
+        </p>
+    `);
+});
+app.use((error, req, res, next) => {
+    if (error) {
+        const code = (error === null || error === void 0 ? void 0 : error.status) || 500;
+        const message = (error === null || error === void 0 ? void 0 : error.message) || 'Something went wrong';
+        res.status(code).json({
+            message: message,
+            success: false,
+            error: error
+        });
+    }
+});
+exports.default = app;
