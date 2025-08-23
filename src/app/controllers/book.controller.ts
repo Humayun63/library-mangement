@@ -85,3 +85,19 @@ bookRoutes.patch('/:bookId', async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 });
+
+bookRoutes.delete('/:bookId', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.params.bookId;
+
+        const book = await Book.findByIdAndDelete(id);
+
+        res.status(200).json({
+            success: true,
+            message: "Book deleted successfully",
+            data: null,
+        })
+    } catch(error) {
+        next(error);
+    }
+});
