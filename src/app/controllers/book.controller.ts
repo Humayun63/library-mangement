@@ -34,6 +34,22 @@ bookRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
+bookRoutes.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const body = req.body;
+
+        const book = await Book.create(body);
+
+        res.status(201).json({
+            success: true,
+            message: 'Book created successfully',
+            data: book,
+        })
+    } catch (error) {
+        next(error);
+    }
+})
+
 bookRoutes.get('/:bookId', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.bookId;
@@ -50,18 +66,22 @@ bookRoutes.get('/:bookId', async (req: Request, res: Response, next: NextFunctio
     }
 });
 
-bookRoutes.post('/', async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.patch('/:bookId', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const id = req.params.bookId;
         const body = req.body;
+        const options = {
+            new: true,
+        }
 
-        const book = await Book.create(body);
+        const book = await Book.findByIdAndUpdate(id, body, options);
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
-            message: 'Book created successfully',
+            message: "Book updated successfully",
             data: book,
         })
-    } catch (error) {
+    } catch(error) {
         next(error);
     }
-})
+});
