@@ -1,5 +1,6 @@
-import { model, Schema, Model } from "mongoose";
+import { model, Schema, Model, Document } from "mongoose";
 import { BookInstanceMethods, IBook } from "../interfaces/book.interface";
+import { BorrowBook } from "./borrow.model";
 
 type BookModel = Model<IBook, {}, BookInstanceMethods>;
 
@@ -57,6 +58,12 @@ bookSchema.pre<IBook>('save', function(next){
         this.available = false;
     }
     next();
+})
+
+bookSchema.post<IBook>('findOneAndDelete', async function(doc: Document){
+    if(doc) {
+        await BorrowBook.deleteMany({book: doc._id})
+    }
 })
 
 export const Book = model<IBook, BookModel>('Book', bookSchema);

@@ -85,7 +85,7 @@ borrowBookRoutes.get('/', async (req: Request, res: Response, next: NextFunction
                     _id: 0,
                     book: {
                         title: '$details.title',
-                        isbn: '$details.isbn'
+                        isbn: '$details.isbn',
                     },
                     totalQuantity: 1
                 }
