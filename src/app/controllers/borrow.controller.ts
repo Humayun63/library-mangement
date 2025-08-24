@@ -11,6 +11,16 @@ borrowBookRoutes.post('/', async (req: Request, res: Response, next: NextFunctio
         const body = req.body as IBorrowBook;
         const book = await Book.findById(body.book) as IBook & BookInstanceMethods;
 
+        if(!book) {
+            res.status(404).json({
+                success: false,
+                message: 'Book is not found!',
+                data: {},
+            })
+
+            return;
+        }
+
         if(!book.available) {
             res.status(404).json({
                 success: false,
@@ -69,7 +79,7 @@ borrowBookRoutes.get('/', async (req: Request, res: Response, next: NextFunction
             {
                 $unwind: '$details'
             },
-            
+
             {
                 $project: {
                     _id: 0,
