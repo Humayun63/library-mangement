@@ -50,4 +50,13 @@ bookSchema.method("deductCopies", async function (quantity: number) {
     await this.save();
 })
 
+bookSchema.pre<IBook>('save', function(next){
+    if (this.copies > 0) {
+        this.available = true;
+    } else {
+        this.available = false;
+    }
+    next();
+})
+
 export const Book = model<IBook, BookModel>('Book', bookSchema);
