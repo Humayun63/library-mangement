@@ -18,6 +18,14 @@ exports.borrowBookRoutes.post('/', (req, res, next) => __awaiter(void 0, void 0,
     try {
         const body = req.body;
         const book = yield book_model_1.Book.findById(body.book);
+        if (!book) {
+            res.status(404).json({
+                success: false,
+                message: 'Book is not found!',
+                data: {},
+            });
+            return;
+        }
         if (!book.available) {
             res.status(404).json({
                 success: false,
@@ -73,7 +81,7 @@ exports.borrowBookRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, 
                     _id: 0,
                     book: {
                         title: '$details.title',
-                        isbn: '$details.isbn'
+                        isbn: '$details.isbn',
                     },
                     totalQuantity: 1
                 }
