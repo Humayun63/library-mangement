@@ -44,3 +44,51 @@ borrowBookRoutes.post('/', async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 })
+
+borrowBookRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const summery = await BorrowBook.aggregate([
+            {
+                $group: {
+                    _id: '$book',
+                    totalQuantity: {
+                        $sum: '$quantity'
+                    }
+                }
+            },
+
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'details'
+                }
+            },
+
+            {
+                $unwind: '$details'
+            },
+            
+            {
+                $project: {
+                    _id: 0,
+                    book: {
+                        title: '$details.title',
+                        isbn: '$details.isbn'
+                    },
+                    totalQuantity: 1
+                }
+            }
+        ])
+        
+
+        res.status(200).json({
+            success: true,
+            message: 'Borrowed books summary retrieved successfully',
+            data: summery,
+        })
+    } catch (error) {
+        next(error);
+    }
+})
