@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bookRoutes = void 0;
 const express_1 = require("express");
-const book_modle_1 = require("../models/book.modle");
+const book_model_1 = require("../models/book.model");
 exports.bookRoutes = (0, express_1.Router)();
 exports.bookRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -23,7 +23,7 @@ exports.bookRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0
         if (sort) {
             sortOptions[sortBy] = sort;
         }
-        const books = yield book_modle_1.Book.find(query)
+        const books = yield book_model_1.Book.find(query)
             .sort(sortOptions)
             .limit(parseInt(limit));
         res.status(200).json({
@@ -39,7 +39,7 @@ exports.bookRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0
 exports.bookRoutes.post('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
-        const book = yield book_modle_1.Book.create(body);
+        const book = yield book_model_1.Book.create(body);
         res.status(201).json({
             success: true,
             message: 'Book created successfully',
@@ -53,7 +53,7 @@ exports.bookRoutes.post('/', (req, res, next) => __awaiter(void 0, void 0, void 
 exports.bookRoutes.get('/:bookId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.bookId;
-        const book = yield book_modle_1.Book.findById(id);
+        const book = yield book_model_1.Book.findById(id);
         res.status(200).json({
             success: true,
             message: "Book retrieved successfully",
@@ -64,14 +64,14 @@ exports.bookRoutes.get('/:bookId', (req, res, next) => __awaiter(void 0, void 0,
         next(error);
     }
 }));
-exports.bookRoutes.patch('/:bookId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.bookRoutes.put('/:bookId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.bookId;
         const body = req.body;
         const options = {
             new: true,
         };
-        const book = yield book_modle_1.Book.findByIdAndUpdate(id, body, options);
+        const book = yield book_model_1.Book.findByIdAndUpdate(id, body, options);
         res.status(200).json({
             success: true,
             message: "Book updated successfully",
@@ -85,7 +85,7 @@ exports.bookRoutes.patch('/:bookId', (req, res, next) => __awaiter(void 0, void 
 exports.bookRoutes.delete('/:bookId', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.bookId;
-        const book = yield book_modle_1.Book.findByIdAndDelete(id);
+        const book = yield book_model_1.Book.findByIdAndDelete(id);
         res.status(200).json({
             success: true,
             message: "Book deleted successfully",
