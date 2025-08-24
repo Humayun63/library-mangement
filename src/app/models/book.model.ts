@@ -19,15 +19,16 @@ const bookSchema = new Schema<IBook, BookModel, BookInstanceMethods>({
     },
     genre: {
         type: String,
+        enum: ['FICTION', 'NON_FICTION', 'SCIENCE', 'SCIENCE', 'BIOGRAPHY', 'FANTASY'],
         required: true,
     },
     description: {
         type: String,
-        required: true,
+        required: false,
     },
     available: {
         type: Boolean,
-        required: true,
+        default: true
     },
     copies: {
         type: Number,
@@ -45,7 +46,7 @@ bookSchema.method("deductCopies", async function (quantity: number) {
         this.copies = 0;
         this.available = false;
     }
-    
+
     await this.save();
 })
 
