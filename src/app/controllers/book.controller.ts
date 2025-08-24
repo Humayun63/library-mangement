@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { Book } from "../models/book.modle";
+import { Book } from "../models/book.model";
 
 export const bookRoutes = Router();
 
@@ -66,7 +66,7 @@ bookRoutes.get('/:bookId', async (req: Request, res: Response, next: NextFunctio
     }
 });
 
-bookRoutes.patch('/:bookId', async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.put('/:bookId', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.bookId;
         const body = req.body;
