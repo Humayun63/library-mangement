@@ -82,6 +82,7 @@ exports.borrowBookRoutes.get('/', (req, res, next) => __awaiter(void 0, void 0, 
                     book: {
                         title: '$details.title',
                         isbn: '$details.isbn',
+                        author: '$details.author'
                     },
                     totalQuantity: 1
                 }

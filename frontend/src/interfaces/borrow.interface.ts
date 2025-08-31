@@ -28,5 +28,5 @@ export interface IBorrowBookResponse {
 export interface IBorrowBookSummaryResponse {
     success: boolean,
     message: string,
-    data: IBorrowBook[]
+    data: IBorrowSummary[]
 }

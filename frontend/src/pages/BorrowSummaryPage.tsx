@@ -1,9 +1,10 @@
+import BorrowSummary from "@/features/borrowSummery";
 import { type FC } from "react";
 
 const BorrowSummaryPage: FC = () => {
     return (
         <>
-            This is book summary page
+            <BorrowSummary />
         </>
     );
 };

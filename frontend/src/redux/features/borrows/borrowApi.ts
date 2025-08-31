@@ -14,7 +14,7 @@ export const borrowApi = createApi({
             }),
             invalidatesTags: ["Borrows"],
         }),
-        getBorrowSummary: builder.query<IBorrowBookSummaryResponse[], void>({
+        getBorrowSummary: builder.query<IBorrowBookSummaryResponse, void>({
             query: () => "/borrow",
             providesTags: ["Borrows"],
         }),
