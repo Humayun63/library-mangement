@@ -2,7 +2,7 @@ export interface IBook {
     _id: number,
     title: string,
     author: string,
-    genre: 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'SCIENCE' | 'BIOGRAPHY' | 'FANTASY',
+    genre: GenreType,
     isbn: string,
     description?: string,
     copies: number,
@@ -14,3 +14,5 @@ export interface IGetBookResponse {
     message: string,
     data: IBook[],
 }
+
+export type GenreType = 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'SCIENCE' | 'BIOGRAPHY' | 'FANTASY'
