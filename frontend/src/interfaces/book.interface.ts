@@ -8,3 +8,9 @@ export interface IBook {
     copies: number,
     available: boolean
 }
+
+export interface IGetBookResponse {
+    success: boolean,
+    message: string,
+    data: IBook[],
+}

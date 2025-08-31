@@ -1,9 +1,13 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { bookRoutes } from './app/controllers/book.controller';
 import { borrowBookRoutes } from './app/controllers/borrow.controller';
+import cors from 'cors';
 
 const app : Application = express();
 app.use(express.json());
+app.use(cors({
+    origin: ['http://localhost:5173']
+}));
 
 app.use('/api/books', bookRoutes);
 app.use('/api/borrow', borrowBookRoutes)

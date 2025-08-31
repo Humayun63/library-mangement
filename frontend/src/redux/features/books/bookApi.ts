@@ -1,12 +1,13 @@
-import type { IBook } from "@/interfaces/book.interface";
+import type { IBook, IGetBookResponse } from "@/interfaces/book.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
     reducerPath: "bookApi",
     baseQuery: fetchBaseQuery({ baseUrl: "https://library-management-gules-delta.vercel.app/api" }),
+    // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
     tagTypes: ["Books"],
     endpoints: (builder) => ({
-        getBooks: builder.query<IBook[], void>({
+        getBooks: builder.query<IGetBookResponse, void>({
             query: () => "/books",
             providesTags: ["Books"],
         }),
