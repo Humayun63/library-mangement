@@ -1,4 +1,5 @@
 import App from "@/App";
+import AddBookPage from "@/pages/AddBookPage";
 import AllBooksPage from "@/pages/AllBooksPage";
 import BorrowSummaryPage from "@/pages/BorrowSummaryPage";
 import LandingPage from "@/pages/LandingPage";
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "create-book",
-                Component: SingleBookPage,
+                Component: AddBookPage,
             },
             {
                 path: "books/:id",

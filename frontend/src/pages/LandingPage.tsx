@@ -1,9 +1,10 @@
+import Landing from "@/components/features/landing";
 import { type FC } from "react";
 
 const LandingPage: FC = () => {
     return (
         <>
-            This is landing page
+            <Landing />
         </>
     );
 };

@@ -7,7 +7,7 @@ export const menuItems = [
 ]
 
 export const themeOptions = [
-    {label: 'Light', value: 'light', icon: Moon},
-    {label: 'Dark', value: 'dark', icon: Sun},
+    {label: 'Light', value: 'light', icon: Sun},
+    {label: 'Dark', value: 'dark', icon: Moon},
     {label: 'System', value: 'system', icon: Laptop}
 ]

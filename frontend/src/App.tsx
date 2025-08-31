@@ -6,7 +6,9 @@ const App: FC = () =>{
 	return(
 		<>
 			<Navbar />
-			<Outlet />
+			<main>
+				<Outlet />
+			</main>
 		</>
 	)
 }

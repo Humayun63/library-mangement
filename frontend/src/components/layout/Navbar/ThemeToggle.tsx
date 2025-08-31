@@ -1,6 +1,5 @@
 import { type FC } from "react"
-import { Sun } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Laptop, Moon, Sun } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +10,8 @@ import { themeOptions } from "./constant";
 import { useTheme, type Theme } from "@/providers/theme-provider";
 
 const ThemeToggle: FC = () => {
-    const { setTheme } = useTheme()
-    
+    const { setTheme, theme } = useTheme()
+            
     const handleThemeChange = (theme: Theme) => {
         setTheme(theme)
     }
@@ -21,7 +20,9 @@ const ThemeToggle: FC = () => {
         <div>
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <Sun className="h-5 w-5" />
+                    {theme === "light" && <Sun className="h-5 w-5" />}
+                    {theme === "dark" && <Moon className="h-5 w-5" />}
+                    {theme === "system" && <Laptop className="h-5 w-5" />}
                 </DropdownMenuTrigger>
                 
                 <DropdownMenuContent align="end">
