@@ -11,12 +11,15 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
-import type { GenreType, IBook } from "@/interfaces/book.interface";
+import type { IBook } from "@/interfaces/book.interface";
+import { useAddBookMutation } from "@/redux/features/books/bookApi";
+import { Navigate } from "react-router";
 
 type FormData = Omit<IBook, "_id">
 
 
 const AddBookForm: FC = () => {
+    const [addBook, { isLoading, isSuccess, error }] = useAddBookMutation();
     const [form, setForm] = useState<FormData>({
         title: "",
         author: "",
@@ -43,13 +46,22 @@ const AddBookForm: FC = () => {
         })
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        if(isLoading) return
         if (!form.title || !form.author || !form.genre || !form.isbn) {
             alert("Please fill all required fields")
             return
         }
-        console.log("Book Form Data:", form)
+        try {
+            const addedBook = await addBook(form).unwrap();
+        } catch (error) {
+            console.error("Error adding book:", error);
+        }
+    }
+
+    if (isSuccess) {
+        return <Navigate to="/books" />;
     }
 
     return (
@@ -138,7 +150,9 @@ const AddBookForm: FC = () => {
                     <Label>Available</Label>
                 </div>
 
-                <Button type="submit">Add Book</Button>
+                <Button type="submit" disabled={isLoading}>
+                    {isLoading ? "Adding..." : "Add Book"}
+                </Button>
             </form>
         </>
     );

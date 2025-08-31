@@ -1,4 +1,4 @@
-import type { IBook, IGetBookResponse } from "@/interfaces/book.interface";
+import type { IAddBookResponse, IBook, IGetBookResponse } from "@/interfaces/book.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
@@ -8,13 +8,13 @@ export const bookApi = createApi({
     tagTypes: ["Books"],
     endpoints: (builder) => ({
         getBooks: builder.query<IGetBookResponse, void>({
-            query: () => "/books",
+            query: () => "/books?sortBy=createdAt&sort=desc&limit",
             providesTags: ["Books"],
         }),
         getBook: builder.query<IBook, string>({
             query: (id) => `/books/${id}`,
         }),
-        addBook: builder.mutation<IBook, Partial<IBook>>({
+        addBook: builder.mutation<IAddBookResponse, Partial<IBook>>({
             query: (body) => ({
                 url: "/books",
                 method: "POST",

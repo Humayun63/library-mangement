@@ -15,4 +15,10 @@ export interface IGetBookResponse {
     data: IBook[],
 }
 
+export interface IAddBookResponse {
+    success: boolean,
+    message: string,
+    data: IBook,
+}
+
 export type GenreType = 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'SCIENCE' | 'BIOGRAPHY' | 'FANTASY'
