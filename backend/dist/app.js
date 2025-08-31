@@ -10,7 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: ['http://localhost:5173']
+    origin: ['https://library-management-client-virid.vercel.app']
 }));
 app.use('/api/books', book_controller_1.bookRoutes);
 app.use('/api/borrow', borrow_controller_1.borrowBookRoutes);
@@ -19,8 +19,14 @@ app.get('/', (req, res) => {
         <h1>Welcome to my Library Management System</h1>
         <p>
             Please visit here for documentation: 
-            <a href="https://github.com/Humayun63/library-mangement" target="_blank">
+            <a href="https://github.com/Humayun63/library-mangement/backend" target="_blank">
                 GitHub Repository
+            </a>
+        </p>
+        <p>
+            Please visit the live site
+            <a href="https://library-management-client-virid.vercel.app/" target="_blank">
+                Live Link
             </a>
         </p>
     `);
