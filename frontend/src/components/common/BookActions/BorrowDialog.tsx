@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import type { IBook } from "@/interfaces/book.interface";
 
 import { useBorrowBookMutation } from "@/redux/features/borrows/borrowApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { bookApi } from "@/redux/features/books/bookApi";
 import { showSuccess, showError } from "@/lib/toast";
 import { useNavigate } from "react-router";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -30,6 +32,7 @@ const BorrowDialog: FC<BorrowDialogProps> = (props) => {
     const [error, setError] = useState("");
     const [borrowBook, { isLoading }] = useBorrowBookMutation();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const today = new Date().toISOString().split("T")[0];
 
@@ -48,6 +51,8 @@ const BorrowDialog: FC<BorrowDialogProps> = (props) => {
         }
         try {
             await borrowBook({ book: book._id, quantity, dueDate: new Date(dueDate) }).unwrap();
+            // Force refetch books after successful borrow
+            dispatch(bookApi.util.invalidateTags(["Books"]));
             showSuccess("Book borrowed successfully!");
             onOpenChange(false);
             navigate("/borrow-summary");
