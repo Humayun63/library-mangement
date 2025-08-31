@@ -9,18 +9,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { menuItems } from "./constant"
 import { Link } from "react-router"
-import { Button } from "@/components/ui/button"
 
 const MobileMenu: FC = () => {
     return (
         <div className="md:hidden">
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <Button variant="ghost" size="icon">
-                        <Menu />
-                    </Button>
+                    <Menu />
                 </DropdownMenuTrigger>
-                
+
                 <DropdownMenuContent>
                     {
                         menuItems.map((item) => (

@@ -24,10 +24,10 @@ export function ThemeProvider(props: ThemeProviderrest) {
     const {
         children,
         defaultTheme = "system",
-        storageKey = "vite-ui-theme",
+        storageKey = "library-ui-theme",
         ...rest
     } = props
-    
+
     const [theme, setTheme] = useState<Theme>(
         () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
     )

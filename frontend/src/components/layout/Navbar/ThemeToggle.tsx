@@ -18,23 +18,23 @@ const ThemeToggle: FC = () => {
     }
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+        <div>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
                     <Sun className="h-5 w-5" />
-                </Button>
-            </DropdownMenuTrigger>
-            
-            <DropdownMenuContent align="end">
-                {
-                    themeOptions.map((option) => (
-                        <DropdownMenuItem key={option.value} onClick={() => handleThemeChange(option.value as Theme)}>
-                            <option.icon /> {option.label}
-                        </DropdownMenuItem>
-                    ))
-                }
-            </DropdownMenuContent>
-        </DropdownMenu>
+                </DropdownMenuTrigger>
+                
+                <DropdownMenuContent align="end">
+                    {
+                        themeOptions.map((option) => (
+                            <DropdownMenuItem key={option.value} onClick={() => handleThemeChange(option.value as Theme)}>
+                                <option.icon /> {option.label}
+                            </DropdownMenuItem>
+                        ))
+                    }
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     )
 };
 
