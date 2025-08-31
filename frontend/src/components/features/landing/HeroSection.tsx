@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const HeroSection: FC = () => {
     return (
         <>
-            <section className="bg-primary py-20">
+            <section className="py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center">
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
@@ -19,7 +19,7 @@ const HeroSection: FC = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/create-book">
-                                <Button size="lg" className="w-full sm:w-auto cursor-pointer hover:scale-105">
+                                <Button size="lg" variant="default" className="w-full sm:w-auto cursor-pointer hover:scale-105">
                                     <Plus className="mr-2 h-5 w-5" />
                                     Add New Book
                                 </Button>
