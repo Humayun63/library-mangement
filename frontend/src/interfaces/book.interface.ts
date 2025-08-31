@@ -26,4 +26,13 @@ export interface IUpdateBookResponse {
     message: string,
     data: IBook,
 }
+
+export interface IBookDetailsResponse {
+    success: boolean,
+    message: string,
+    data: IBook & {
+        createdAt: string,
+        updatedAt: string
+    },
+}
 export type GenreType = 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'SCIENCE' | 'BIOGRAPHY' | 'FANTASY'

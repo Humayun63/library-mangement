@@ -1,17 +1,16 @@
-import type { IAddBookResponse, IBook, IGetBookResponse, IUpdateBookResponse } from "@/interfaces/book.interface";
+import type { IAddBookResponse, IBook, IBookDetailsResponse, IGetBookResponse, IUpdateBookResponse } from "@/interfaces/book.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
     reducerPath: "bookApi",
     baseQuery: fetchBaseQuery({ baseUrl: "https://library-management-gules-delta.vercel.app/api" }),
-    // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
     tagTypes: ["Books"],
     endpoints: (builder) => ({
         getBooks: builder.query<IGetBookResponse, void>({
             query: () => "/books?sortBy=createdAt&sort=desc&limit",
             providesTags: ["Books"],
         }),
-        getBook: builder.query<IBook, string>({
+        getBook: builder.query<IBookDetailsResponse, string>({
             query: (id) => `/books/${id}`,
         }),
         addBook: builder.mutation<IAddBookResponse, Partial<IBook>>({
