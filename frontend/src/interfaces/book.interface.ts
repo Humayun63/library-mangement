@@ -21,4 +21,10 @@ export interface IAddBookResponse {
     data: IBook,
 }
 
+export interface IUpdateBookResponse {
+    success: boolean,
+    message: string,
+    data: IBook,
+}
+
 export type GenreType = 'FICTION' | 'NON_FICTION' | 'SCIENCE' | 'SCIENCE' | 'BIOGRAPHY' | 'FANTASY'

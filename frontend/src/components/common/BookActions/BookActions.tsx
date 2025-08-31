@@ -9,29 +9,33 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { MoreVertical, Pencil, Trash2, BookOpen } from "lucide-react"
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import EditBook from "../EditBook/EditBook";
 
 interface BookActionsProps {
     book: IBook;
 }
+
 const BookActions: FC<BookActionsProps> = (props) => {
     const { 
         book 
     } = props;
 
     const [isOpenEdit, setIsOpenEdit] = useState(false);
+    const [isOpenDelete, setIsOpenDelete] = useState(false);
 
     const handleAction = (action: string) => {
         if (action === "Edit") {
             setIsOpenEdit(true);
+        } else if (action === "Delete") {
+            setIsOpenDelete(true);
         }
-        // ...other actions can be handled here
     };
 
     const handleCloseEdit = () => {
         setIsOpenEdit(false);
     };
-    
+
     return (
         <>
             <DropdownMenu>
@@ -58,6 +62,14 @@ const BookActions: FC<BookActionsProps> = (props) => {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+
+            <DeleteConfirmDialog
+                open={isOpenDelete}
+                onOpenChange={setIsOpenDelete}
+                bookId={book._id}
+                title="Delete Book"
+                description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
+            />
 
             <EditBook book={book} isOpen={isOpenEdit} onClose={handleCloseEdit} />
         </>
