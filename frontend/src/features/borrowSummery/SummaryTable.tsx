@@ -21,7 +21,7 @@ const SummaryTable: FC = () => {
                         isLoading ? (
                             <SummaryTableSkeleton />
                         ) : (
-                            <div className="overflow-x-auto rounded-md border max-w-full md:max-w-[800px] mx-auto">
+                            <div className="overflow-x-auto rounded-md border max-w-full md:max-w-[960px] mx-auto">
                                 <Table>
                                     <TableHeader>
                                         <TableRow>

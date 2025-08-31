@@ -12,7 +12,7 @@ import Skeleton from "@/components/ui/Skeleton"
 
 const SummaryTableSkeleton: FC = () => {
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-md border max-w-full md:max-w-[960px] mx-auto">
             <Table>
                 <TableHeader>
                     <TableRow>
