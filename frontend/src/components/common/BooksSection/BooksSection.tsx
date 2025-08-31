@@ -15,7 +15,7 @@ const BooksSection = () => {
         <>
             <section className="w-full py-20">
                 <div className="container mx-auto px-4">
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
                         <h2 className="text-xl font-semibold">Books</h2>
 
                         <div className="flex gap-2">

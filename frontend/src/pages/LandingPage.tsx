@@ -1,4 +1,4 @@
-import Landing from "@/components/features/landing";
+import Landing from "@/features/landing";
 import { type FC } from "react";
 
 const LandingPage: FC = () => {
