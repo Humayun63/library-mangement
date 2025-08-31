@@ -9,8 +9,8 @@ A full-stack Library Management System for managing books and borrow records.
 
 ## Repositories
 
-- **Frontend Repo:** [https://github.com/Humayun63/library-management-client](https://github.com/Humayun63/library-management-client)
-- **Backend Repo:** [https://github.com/Humayun63/library-management-server](https://github.com/Humayun63/library-management-server)
+- **Frontend Repo:** [Frontend Repo](/frontend/)
+- **Backend Repo:** [Backend Repo](/backend/)
 
 ## Features
 
