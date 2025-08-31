@@ -21,24 +21,24 @@ const SummaryTable: FC = () => {
                         isLoading ? (
                             <SummaryTableSkeleton />
                         ) : (
-                            <div className="overflow-x-auto rounded-md border max-w-full md:max-w-[960px] mx-auto">
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Title</TableHead>
-                                            <TableHead>Author</TableHead>
-                                            <TableHead>ISBN</TableHead>
-                                            <TableHead className="text-right">Total Quantity</TableHead>
+                            <div className="overflow-x-auto rounded-md border mx-auto bg-card">
+                                <Table className="bg-card px-4 py-4">
+                                    <TableHeader className="bg-card px-4 py-4">
+                                        <TableRow className="bg-card px-4 py-4">
+                                            <TableHead className="bg-card px-4 py-4">Title</TableHead>
+                                            <TableHead className="bg-card px-4 py-4">Author</TableHead>
+                                            <TableHead className="bg-card px-4 py-4">ISBN</TableHead>
+                                            <TableHead className="bg-card px-4 py-4 text-right">Total Quantity</TableHead>
                                         </TableRow>
                                     </TableHeader>
 
                                     <TableBody>
                                         {data?.data.map((summary, index) => (
                                             <TableRow key={index}>
-                                                <TableCell>{summary.book.title}</TableCell>
-                                                <TableCell>{summary.book.author}</TableCell>
-                                                <TableCell>{summary.book.isbn}</TableCell>
-                                                <TableCell className="text-right">{summary.totalQuantity}</TableCell>
+                                                <TableCell className="bg-card px-4 py-4">{summary.book.title}</TableCell>
+                                                <TableCell className="bg-card px-4 py-4">{summary.book.author}</TableCell>
+                                                <TableCell className="bg-card px-4 py-4">{summary.book.isbn}</TableCell>
+                                                <TableCell className="bg-card px-4 py-4 text-right">{summary.totalQuantity}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
