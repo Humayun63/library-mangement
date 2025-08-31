@@ -1,4 +1,4 @@
-import type { IBorrowBook, IBorrowBookResponse, IBorrowBookSummaryResponse, IBorrowSummary } from "@/interfaces/borrow.interface";
+import type { IBorrowBook, IBorrowBookResponse, IBorrowBookSummaryResponse } from "@/interfaces/borrow.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const borrowApi = createApi({

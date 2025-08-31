@@ -4,7 +4,7 @@ A library management system built with Node.js, Express.js, TypeScript, MongoDB 
 
 ## Live Demo
 
-**Live Application:** [https://library-mangement-six.vercel.app/](https://library-mangement-six.vercel.app/)
+**Live Application:** [https://library-management-gules-delta.vercel.app/](https://library-management-gules-delta.vercel.app/)
 
 ## Features
 

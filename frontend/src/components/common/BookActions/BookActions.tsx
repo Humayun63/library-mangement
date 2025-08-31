@@ -1,6 +1,5 @@
 import type { IBook } from "@/interfaces/book.interface";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import BorrowDialog from "./BorrowDialog";
 import {
   DropdownMenu,
@@ -33,11 +32,6 @@ const BookActions = (props: BookActionsProps) => {
             setIsOpenBorrow(true);
         }
     };
-
-    const handleCloseEdit = () => {
-        setIsOpenEdit(false);
-    };
-
 
     return (
         <>

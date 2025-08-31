@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import {
     Dialog,
     DialogContent,
@@ -18,7 +18,7 @@ interface EditBookProps {
 }
 
 const EditBook: FC<EditBookProps> = ({ book, open, onOpenChange }) => {
-    const [updateBook, { isLoading, isSuccess, error }] = useUpdateBookMutation();
+    const [updateBook, { isLoading }] = useUpdateBookMutation();
 
     const handleSubmit = async (data: Partial<IBook>) => {
         try {
