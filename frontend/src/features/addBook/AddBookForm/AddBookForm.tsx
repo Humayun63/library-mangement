@@ -15,6 +15,7 @@ import type { IBook } from "@/interfaces/book.interface";
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
 import { showSuccess, showError } from "@/lib/toast";
 import { Navigate } from "react-router";
+import Skeleton from "@/components/ui/Skeleton";
 
 interface AddBookFormProps {
     initialData?: IBook;
@@ -31,7 +32,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
     const [form, setForm] = useState<Partial<IBook>>({
         title: "",
         author: "",
-        genre: "FICTION",
+        genre: "",
         isbn: "",
         description: "",
         copies: 1,
@@ -78,7 +79,10 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
 
     useEffect(() => {
         if (initialData) {
-            setForm(initialData)
+            setForm({
+                ...initialData,
+                genre: initialData.genre || ""
+            })
         }
     }, [initialData])
 
@@ -114,23 +118,31 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
 
                 <div className="space-y-2">
                     <Label>Genre *</Label>
-                    <Select
-                        value={form.genre}
-                        onValueChange={(value) => handleChange("genre", value)}
-                        required
-                    >
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select genre" />
-                        </SelectTrigger>
-                        
-                        <SelectContent>
-                            <SelectItem value="FICTION">Fiction</SelectItem>
-                            <SelectItem value="NON_FICTION">Non Fiction</SelectItem>
-                            <SelectItem value="SCIENCE">Science</SelectItem>
-                            <SelectItem value="BIOGRAPHY">Biography</SelectItem>
-                            <SelectItem value="FANTASY">Fantasy</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    {
+                        (onSubmit && !form?.genre) ? (
+                            <>
+                                <Skeleton />
+                            </>
+                        ): (
+                            <Select
+                                defaultValue={form?.genre?.trim()}
+                                onValueChange={(value) => handleChange("genre", value)}
+                                required
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select genre" />
+                                </SelectTrigger>
+                                
+                                <SelectContent>
+                                    <SelectItem value="FICTION">Fiction</SelectItem>
+                                    <SelectItem value="NON_FICTION">Non Fiction</SelectItem>
+                                    <SelectItem value="SCIENCE">Science</SelectItem>
+                                    <SelectItem value="BIOGRAPHY">Biography</SelectItem>
+                                    <SelectItem value="FANTASY">Fantasy</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        )
+                    }
                 </div>
 
                 <div className="space-y-2">
