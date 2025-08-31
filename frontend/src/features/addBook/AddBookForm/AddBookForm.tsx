@@ -18,13 +18,15 @@ import { Navigate } from "react-router";
 interface AddBookFormProps {
     initialData?: IBook;
     onSubmit?: (data: Partial<IBook>) => void;
+    loading?: boolean;
 }
 
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
-    const { initialData, onSubmit } = props;
+    const { initialData, onSubmit, loading } = props;
 
     const [addBook, { isLoading, isSuccess, error }] = useAddBookMutation();
+
     const [form, setForm] = useState<Partial<IBook>>({
         title: "",
         author: "",
@@ -169,7 +171,9 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
                 </div>
 
                 <Button type="submit" disabled={isLoading}>
-                    {isLoading ? "Adding..." : "Add Book"}
+                    {
+                        onSubmit ? (loading ? "Saving..." : "Save Changes") : (isLoading ? "Adding..." : "Add Book")
+                    }
                 </Button>
             </form>
         </>

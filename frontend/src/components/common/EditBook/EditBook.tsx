@@ -21,13 +21,7 @@ const EditBook: FC<EditBookProps> = ({ book, isOpen, onClose }) => {
 
     const handleSubmit = async (data: Partial<IBook>) => {
         try {
-            const formattedData = {
-                id: book._id,
-                ...data
-            } as { id: number; data: Partial<IBook> };
-
-            const res = await updateBook(formattedData).unwrap();
-
+            const res = await updateBook({ id: book._id, data }).unwrap();
             if(res.success){
                 onClose();
             }
@@ -45,9 +39,11 @@ const EditBook: FC<EditBookProps> = ({ book, isOpen, onClose }) => {
                     </DialogHeader>
 
                     <div className="overflow-auto flex-1 px-4 pb-4 scrollbar scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded">
+
                         <AddBookForm
                             initialData={book}
                             onSubmit={handleSubmit}
+                            loading={isLoading}
                         />
                     </div>
                 </DialogContent>
