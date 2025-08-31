@@ -27,12 +27,12 @@ interface AddBookFormProps {
 const AddBookForm: FC<AddBookFormProps> = (props) => {
     const { initialData, onSubmit, loading } = props;
 
-    const [addBook, { isLoading, isSuccess, error }] = useAddBookMutation();
+    const [addBook, { isLoading, isSuccess }] = useAddBookMutation();
 
     const [form, setForm] = useState<Partial<IBook>>({
         title: "",
         author: "",
-        genre: "",
+        genre: undefined,
         isbn: "",
         description: "",
         copies: 1,
