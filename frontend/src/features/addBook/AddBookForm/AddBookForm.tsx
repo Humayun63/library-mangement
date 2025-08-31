@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -15,12 +15,17 @@ import type { IBook } from "@/interfaces/book.interface";
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
 import { Navigate } from "react-router";
 
-type FormData = Omit<IBook, "_id">
+interface AddBookFormProps {
+    initialData?: IBook;
+    onSubmit?: (data: Partial<IBook>) => void;
+}
 
 
-const AddBookForm: FC = () => {
+const AddBookForm: FC<AddBookFormProps> = (props) => {
+    const { initialData, onSubmit } = props;
+
     const [addBook, { isLoading, isSuccess, error }] = useAddBookMutation();
-    const [form, setForm] = useState<FormData>({
+    const [form, setForm] = useState<Partial<IBook>>({
         title: "",
         author: "",
         genre: "FICTION",
@@ -30,7 +35,7 @@ const AddBookForm: FC = () => {
         available: true,
     })
 
-    const handleChange = (key: keyof FormData, value: any) => {
+    const handleChange = (key: keyof  Partial<IBook>, value: any) => {
         let updatedValue = value
 
         if (key === "copies") {
@@ -40,7 +45,7 @@ const AddBookForm: FC = () => {
         setForm((prev) => {
             const newForm = { ...prev, [key]: updatedValue }
             if (key === "copies") {
-                newForm.available = newForm.copies > 0 ? newForm.available : false
+                newForm.available = newForm?.copies as number > 0 ? newForm.available : false
             }
             return newForm
         })
@@ -48,17 +53,30 @@ const AddBookForm: FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if(isLoading) return
+        
         if (!form.title || !form.author || !form.genre || !form.isbn) {
             alert("Please fill all required fields")
             return
         }
+
+        if (onSubmit) {
+            onSubmit(form);
+            return;
+        }
+
         try {
-            const addedBook = await addBook(form).unwrap();
+            if(isLoading) return
+            await addBook(form).unwrap();
         } catch (error) {
             console.error("Error adding book:", error);
         }
     }
+
+    useEffect(() => {
+        if (initialData) {
+            setForm(initialData)
+        }
+    }, [initialData])
 
     if (isSuccess) {
         return <Navigate to="/books" />;
@@ -68,7 +86,7 @@ const AddBookForm: FC = () => {
         <>
             <form
                 onSubmit={handleSubmit}
-                className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg space-y-6"
+                className="space-y-6"
             >
                 <div className="space-y-2">
                     <Label>Title *</Label>

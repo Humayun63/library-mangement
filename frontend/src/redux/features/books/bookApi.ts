@@ -1,4 +1,4 @@
-import type { IAddBookResponse, IBook, IGetBookResponse } from "@/interfaces/book.interface";
+import type { IAddBookResponse, IBook, IGetBookResponse, IUpdateBookResponse } from "@/interfaces/book.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const bookApi = createApi({
@@ -22,7 +22,7 @@ export const bookApi = createApi({
             }),
             invalidatesTags: ["Books"],
         }),
-        updateBook: builder.mutation<IBook, { id: string; data: Partial<IBook> }>({
+        updateBook: builder.mutation<IUpdateBookResponse, { id: number; data: Partial<IBook> }>({
             query: ({ id, data }) => ({
                 url: `/books/${id}`,
                 method: "PUT",

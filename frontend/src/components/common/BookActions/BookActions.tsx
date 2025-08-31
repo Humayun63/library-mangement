@@ -1,5 +1,5 @@
 import type { IBook } from "@/interfaces/book.interface";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +9,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { MoreVertical, Pencil, Trash2, BookOpen } from "lucide-react"
+import EditBook from "../EditBook/EditBook";
 
 interface BookActionsProps {
     book: IBook;
@@ -18,10 +19,19 @@ const BookActions: FC<BookActionsProps> = (props) => {
         book 
     } = props;
 
-    const handleAction = (action: string) => {
-    console.log(`${action} clicked for:`, book.title)
-  }
+    const [isOpenEdit, setIsOpenEdit] = useState(false);
 
+    const handleAction = (action: string) => {
+        if (action === "Edit") {
+            setIsOpenEdit(true);
+        }
+        // ...other actions can be handled here
+    };
+
+    const handleCloseEdit = () => {
+        setIsOpenEdit(false);
+    };
+    
     return (
         <>
             <DropdownMenu>
@@ -48,6 +58,8 @@ const BookActions: FC<BookActionsProps> = (props) => {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+
+            <EditBook book={book} isOpen={isOpenEdit} onClose={handleCloseEdit} />
         </>
     );
 };
