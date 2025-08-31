@@ -1,4 +1,4 @@
-import type { IBorrowBook, IBorrowSummary } from "@/interfaces/borrow.interface";
+import type { IBorrowBook, IBorrowBookResponse, IBorrowSummary } from "@/interfaces/borrow.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const borrowApi = createApi({
@@ -6,7 +6,7 @@ export const borrowApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://library-management-gules-delta.vercel.app/api" }),
     tagTypes: ["Borrows"],
     endpoints: (builder) => ({
-        borrowBook: builder.mutation<IBorrowBook, Partial<IBorrowBook>>({
+        borrowBook: builder.mutation<IBorrowBookResponse, Partial<IBorrowBook>>({
             query: (body) => ({
                 url: "/borrow",
                 method: "POST",

@@ -13,6 +13,7 @@ import type { IBook } from "@/interfaces/book.interface";
 
 import { useBorrowBookMutation } from "@/redux/features/borrows/borrowApi";
 import { useNavigate } from "react-router";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface BorrowDialogProps {
     open: boolean;
@@ -24,7 +25,7 @@ interface BorrowDialogProps {
 const BorrowDialog: FC<BorrowDialogProps> = (props) => {
     const { open, onOpenChange, book } = props;
     const [quantity, setQuantity] = useState(1);
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
     const [error, setError] = useState("");
     const [borrowBook, { isLoading }] = useBorrowBookMutation();
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ const BorrowDialog: FC<BorrowDialogProps> = (props) => {
     const handleBorrow = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
+        
         if (quantity < 1 || quantity > book?.copies) {
             setError(`Quantity must be between 1 and ${book?.copies}`);
             return;
@@ -76,21 +78,16 @@ const BorrowDialog: FC<BorrowDialogProps> = (props) => {
                             onChange={e => setQuantity(Number(e.target.value))}
                             required
                         />
-                        <small className="text-xs text-muted-foreground">Available: {book?.copies}</small>
+                        <small className="text-xs text-muted-foreground">Available: {book?.copies} {book?.copies > 1 ? "copies" : "copy"}</small>
                     </div>
+
                     <div className="space-y-2">
                         <Label htmlFor="dueDate">Due Date</Label>
-                        <Input
-                            id="dueDate"
-                            type="date"
-                            min={today}
-                            value={dueDate}
-                            onChange={e => setDueDate(e.target.value)}
-                            required
-                        />
+                        <DatePicker className="w-full" disablePastDates={true} onChange={setDueDate} />
                     </div>
+
                     {error && <div className="text-red-500 text-xs mb-2">{error}</div>}
-                    
+
                     <div className="flex justify-end">
                         <Button type="submit" className="w-full" disabled={isLoading}>
                             {isLoading ? "Borrowing..." : "Borrow"}

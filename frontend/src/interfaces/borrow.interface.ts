@@ -11,3 +11,13 @@ export interface IBorrowSummary {
     isbn: string;
     totalQuantity: number;
 }
+
+
+export interface IBorrowBookResponse {
+    success: boolean,
+    message: string,
+    data: IBorrowBook & {
+        createdAt: string,
+        updatedAt: string
+    }
+}
