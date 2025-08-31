@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useDeleteBookMutation } from "@/redux/features/books/bookApi";
+import { showSuccess, showError } from "@/lib/toast";
 
 interface DeleteConfirmDialogProps {
     open: boolean;
@@ -39,9 +40,12 @@ const DeleteConfirmDialog: FC<DeleteConfirmDialogProps> = (props) => {
         setError(null);
         try {
             await deleteBook(String(bookId)).unwrap();
+            showSuccess("Book deleted successfully!");
             onOpenChange(false);
         } catch (err: any) {
-            setError(err?.data?.message || "Failed to delete.");
+            const msg = err?.data?.message || "Failed to delete.";
+            setError(msg);
+            showError(msg);
         }
     };
 

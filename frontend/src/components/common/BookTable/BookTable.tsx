@@ -41,10 +41,10 @@ const BookTable: FC = () => {
                                 </Link>
                             </TableCell>
 
-                            <TableCell>{book.author}</TableCell>
-                            <TableCell>{book.genre}</TableCell>
-                            <TableCell>{book.isbn}</TableCell>
-                            <TableCell>{book.copies}</TableCell>
+                            <TableCell>{book?.author}</TableCell>
+                            <TableCell>{book?.genre?.split('_').join(' ')}</TableCell>
+                            <TableCell>{book?.isbn}</TableCell>
+                            <TableCell>{book?.copies}</TableCell>
                             <TableCell>
                                 <span
                                     className={`font-medium ${

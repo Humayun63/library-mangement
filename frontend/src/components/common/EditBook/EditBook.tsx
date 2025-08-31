@@ -9,6 +9,7 @@ import {
 import type { IBook } from "@/interfaces/book.interface";
 import AddBookForm from "@/features/addBook/AddBookForm/AddBookForm";
 import { useUpdateBookMutation } from "@/redux/features/books/bookApi";
+import { showSuccess, showError } from "@/lib/toast";
 
 interface EditBookProps {
     book: IBook,
@@ -23,9 +24,13 @@ const EditBook: FC<EditBookProps> = ({ book, open, onOpenChange }) => {
         try {
             const res = await updateBook({ id: book._id, data }).unwrap();
             if(res.success){
+                showSuccess("Book updated successfully!");
                 onOpenChange(false);
+            } else {
+                showError("Failed to update book.");
             }
         } catch (error) {
+            showError("Failed to update book.");
             console.error("Failed to update book:", error);
         }
     }

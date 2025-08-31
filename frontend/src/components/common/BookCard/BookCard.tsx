@@ -32,9 +32,9 @@ const BookCard: FC<BookCardProps> = (props) => {
                 </CardHeader>
 
                 <CardContent className="space-y-2">
-                    <p className="text-sm">Genre: {book.genre}</p>
-                    <p className="text-sm">ISBN: {book.isbn}</p>
-                    <p className="text-sm">Copies: {book.copies}</p>
+                    <p className="text-sm">Genre: {book?.genre?.split('_').join(' ')}</p>
+                    <p className="text-sm">ISBN: {book?.isbn}</p>
+                    <p className="text-sm">Copies: {book?.copies}</p>
                     <p className="text-sm">
                         Availability:{" "}
                         <span

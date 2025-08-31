@@ -34,7 +34,7 @@ const SingleBook: FC = () => {
                         <div className="flex flex-wrap items-center gap-4">
                             <Badge variant="secondary" className="flex items-center gap-1">
                                 <Layers className="h-4 w-4" />
-                                {data?.data?.genre}
+                                {data?.data?.genre?.split('_').join(' ')}
                             </Badge>
 
                             <span className="flex items-center gap-1 text-sm text-muted-foreground">

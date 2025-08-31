@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import type { IBook } from "@/interfaces/book.interface";
 
 import { useBorrowBookMutation } from "@/redux/features/borrows/borrowApi";
+import { showSuccess, showError } from "@/lib/toast";
 import { useNavigate } from "react-router";
 import { DatePicker } from "@/components/ui/date-picker";
 
@@ -35,21 +36,24 @@ const BorrowDialog: FC<BorrowDialogProps> = (props) => {
     const handleBorrow = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
-        
         if (quantity < 1 || quantity > book?.copies) {
             setError(`Quantity must be between 1 and ${book?.copies}`);
+            showError(`Quantity must be between 1 and ${book?.copies}`);
             return;
         }
         if (!dueDate || new Date(dueDate) < new Date(today)) {
             setError("Due date cannot be in the past");
+            showError("Due date cannot be in the past");
             return;
         }
         try {
             await borrowBook({ book: book._id, quantity, dueDate: new Date(dueDate) }).unwrap();
+            showSuccess("Book borrowed successfully!");
             onOpenChange(false);
             navigate("/borrow-summary");
         } catch (e) {
             setError("Failed to borrow book. Please try again.");
+            showError("Failed to borrow book. Please try again.");
         }
     };
 

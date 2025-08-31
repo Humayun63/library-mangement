@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import type { IBook } from "@/interfaces/book.interface";
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
+import { showSuccess, showError } from "@/lib/toast";
 import { Navigate } from "react-router";
 
 interface AddBookFormProps {
@@ -55,21 +56,22 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        
         if (!form.title || !form.author || !form.genre || !form.isbn) {
-            alert("Please fill all required fields")
-            return
+            showError("Please fill all required fields");
+            return;
         }
-
         if (onSubmit) {
             onSubmit(form);
             return;
         }
-
         try {
-            if(isLoading) return
-            await addBook(form).unwrap();
+            if(isLoading) return;
+            const res = await addBook(form).unwrap();
+            if(res.success){
+                showSuccess("Book added successfully!");
+            }
         } catch (error) {
+            showError("Failed to add book.");
             console.error("Error adding book:", error);
         }
     }
