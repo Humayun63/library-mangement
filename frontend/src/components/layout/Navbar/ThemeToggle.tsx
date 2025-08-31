@@ -8,10 +8,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { themeOptions } from "./constant";
+import { useTheme, type Theme } from "@/providers/theme-provider";
 
 const ThemeToggle: FC = () => {
-    const handleThemeChange = (theme: string) => {
-        console.log(`Theme changed to: ${theme}`)
+    const { setTheme } = useTheme()
+    
+    const handleThemeChange = (theme: Theme) => {
+        setTheme(theme)
     }
 
     return (
@@ -25,7 +28,7 @@ const ThemeToggle: FC = () => {
             <DropdownMenuContent align="end">
                 {
                     themeOptions.map((option) => (
-                        <DropdownMenuItem key={option.value} onClick={() => handleThemeChange(option.value)}>
+                        <DropdownMenuItem key={option.value} onClick={() => handleThemeChange(option.value as Theme)}>
                             <option.icon /> {option.label}
                         </DropdownMenuItem>
                     ))
