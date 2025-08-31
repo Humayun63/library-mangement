@@ -4,6 +4,8 @@ import { useState } from "react";
 import BookCard from "../BookCard/BookCard";
 import BookTable from "../BookTable/BookTable";
 import { useGetBooksQuery } from "@/redux/features/books/bookApi";
+import BookTableSkeleton from "../BookTable/BookTableSkeleton";
+import BookCardSkeleton from "./BookCardSkeleton";
 
 const BooksSection = () => {
     const [view, setView] = useState<"grid" | "table">("grid")
@@ -38,14 +40,36 @@ const BooksSection = () => {
                     </div>
 
                     {view === "grid" && (
-                        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                            {data?.data?.map((book) => (
-                                <BookCard key={book._id} book={book} />
-                            ))}
-                        </div>
+                        <>
+                            {
+                                isLoading ? (
+                                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                        {Array.from({ length: 6 }).map((_, i) => (
+                                            <BookCardSkeleton key={i} />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                        {data?.data?.map((book) => (
+                                            <BookCard key={book._id} book={book} />
+                                        ))}
+                                    </div>
+                                )
+                            }
+                        </>
                     )}
 
-                    {view === "table" && <BookTable />}
+                    {view === "table" && (
+                        <>
+                            {
+                                isLoading ? (
+                                    <BookTableSkeleton />
+                                ) : (
+                                    <BookTable />
+                                )
+                            }
+                        </>
+                    )}
                 </div>
             </section>
         </>
