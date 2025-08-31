@@ -1,5 +1,7 @@
 import type { IBook } from "@/interfaces/book.interface";
-import { useState, type FC } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import BorrowDialog from "./BorrowDialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,25 +18,26 @@ interface BookActionsProps {
     book: IBook;
 }
 
-const BookActions: FC<BookActionsProps> = (props) => {
-    const { 
-        book 
-    } = props;
-
+const BookActions = (props: BookActionsProps) => {
+    const { book } = props;
     const [isOpenEdit, setIsOpenEdit] = useState(false);
     const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const [isOpenBorrow, setIsOpenBorrow] = useState(false);
 
     const handleAction = (action: string) => {
         if (action === "Edit") {
             setIsOpenEdit(true);
         } else if (action === "Delete") {
             setIsOpenDelete(true);
+        } else if (action === "Borrow") {
+            setIsOpenBorrow(true);
         }
     };
 
     const handleCloseEdit = () => {
         setIsOpenEdit(false);
     };
+
 
     return (
         <>
@@ -51,17 +54,24 @@ const BookActions: FC<BookActionsProps> = (props) => {
                         Edit
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem onClick={() => handleAction("Delete")} className="cursor-pointer">
-                        <Trash2 className="h-4 w-4 mr-2 text-red-600" />
-                        Delete
-                    </DropdownMenuItem>
-
                     <DropdownMenuItem onClick={() => handleAction("Borrow")} className="cursor-pointer">
                         <BookOpen className="h-4 w-4 mr-2" />
                         Borrow
                     </DropdownMenuItem>
+
+                    <DropdownMenuItem onClick={() => handleAction("Delete")} className="cursor-pointer">
+                        <Trash2 className="h-4 w-4 mr-2 text-red-600" />
+                        Delete
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
+
+            <EditBook 
+                book={book} 
+                open={isOpenEdit} 
+                onOpenChange={setIsOpenEdit} 
+            />
+
 
             <DeleteConfirmDialog
                 open={isOpenDelete}
@@ -71,7 +81,11 @@ const BookActions: FC<BookActionsProps> = (props) => {
                 description={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
             />
 
-            <EditBook book={book} isOpen={isOpenEdit} onClose={handleCloseEdit} />
+            <BorrowDialog
+                open={isOpenBorrow}
+                onOpenChange={setIsOpenBorrow}
+                book={book}
+            />
         </>
     );
 };

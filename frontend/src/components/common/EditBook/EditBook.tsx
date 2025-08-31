@@ -12,18 +12,18 @@ import { useUpdateBookMutation } from "@/redux/features/books/bookApi";
 
 interface EditBookProps {
     book: IBook,
-    isOpen: boolean,
-    onClose: () => void;
+    open: boolean,
+    onOpenChange: (open: boolean) => void;
 }
 
-const EditBook: FC<EditBookProps> = ({ book, isOpen, onClose }) => {
+const EditBook: FC<EditBookProps> = ({ book, open, onOpenChange }) => {
     const [updateBook, { isLoading, isSuccess, error }] = useUpdateBookMutation();
 
     const handleSubmit = async (data: Partial<IBook>) => {
         try {
             const res = await updateBook({ id: book._id, data }).unwrap();
             if(res.success){
-                onClose();
+                onOpenChange(false);
             }
         } catch (error) {
             console.error("Failed to update book:", error);
@@ -32,7 +32,7 @@ const EditBook: FC<EditBookProps> = ({ book, isOpen, onClose }) => {
 
     return (
         <>
-            <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+            <Dialog open={open} onOpenChange={onOpenChange}>
                 <DialogContent  className="w-full max-w-[95vw] md:max-w-xl sm:max-h-[90vh] max-h-[calc(100vh-2rem)] p-0 overflow-hidden flex flex-col">
                     <DialogHeader className="px-4 pt-4">
                         <DialogTitle>Edit Book</DialogTitle>
