@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const borrowApi = createApi({
     reducerPath: "borrowApi",
     baseQuery: fetchBaseQuery({ baseUrl: "https://library-management-gules-delta.vercel.app/api" }),
-    tagTypes: ["Borrows"],
+    tagTypes: ["Borrows", "Books"],
     endpoints: (builder) => ({
         borrowBook: builder.mutation<IBorrowBookResponse, Partial<IBorrowBook>>({
             query: (body) => ({
@@ -12,7 +12,7 @@ export const borrowApi = createApi({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Borrows"],
+            invalidatesTags: ["Borrows", "Books"],
         }),
         getBorrowSummary: builder.query<IBorrowBookSummaryResponse, void>({
             query: () => "/borrow",
