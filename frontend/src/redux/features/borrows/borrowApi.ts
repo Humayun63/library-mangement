@@ -1,4 +1,4 @@
-import type { IBorrowBook, IBorrowBookResponse, IBorrowSummary } from "@/interfaces/borrow.interface";
+import type { IBorrowBook, IBorrowBookResponse, IBorrowBookSummaryResponse, IBorrowSummary } from "@/interfaces/borrow.interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const borrowApi = createApi({
@@ -14,7 +14,7 @@ export const borrowApi = createApi({
             }),
             invalidatesTags: ["Borrows"],
         }),
-        getBorrowSummary: builder.query<IBorrowSummary[], void>({
+        getBorrowSummary: builder.query<IBorrowBookSummaryResponse[], void>({
             query: () => "/borrow",
             providesTags: ["Borrows"],
         }),

@@ -7,9 +7,12 @@ export interface IBorrowBook {
 }
 
 export interface IBorrowSummary {
-    bookTitle: string;
-    isbn: string;
     totalQuantity: number;
+    book: {
+        title: string,
+        isbn: string,
+        author: string
+    }
 }
 
 
@@ -18,6 +21,12 @@ export interface IBorrowBookResponse {
     message: string,
     data: IBorrowBook & {
         createdAt: string,
-        updatedAt: string
+        updatedAt: string,
     }
+}
+
+export interface IBorrowBookSummaryResponse {
+    success: boolean,
+    message: string,
+    data: IBorrowBook[]
 }
