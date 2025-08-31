@@ -1,19 +1,26 @@
+
 import { type FC } from "react"
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { menuItems } from "./constant";
 
+
 const NavLinks: FC = () => {
+    const location = useLocation();
+
     return (
         <>
-            {menuItems.map((item) => (
-                <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                >
-                    {item.name}
-                </Link>
-            ))}
+            {menuItems.map((item) => {
+                const isActive = location.pathname === item.href;
+                return (
+                    <Link
+                        key={item.name}
+                        to={item.href}
+                        className={`text-sm font-medium ${isActive ? 'underline' : ''}`}
+                    >
+                        {item.name}
+                    </Link>
+                );
+            })}
         </>
     )
 };
