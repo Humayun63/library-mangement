@@ -75,12 +75,12 @@ const SingleBook: FC = () => {
                         <div className="text-xs text-muted-foreground space-y-2">
                             <p className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                Created At: {new Date(data?.data?.createdAt).toLocaleDateString()}
+                                Created At: {data?.data?.createdAt ? new Date(data.data.createdAt).toLocaleDateString() : 'N/A'}
                             </p>
 
                             <p className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                Updated At: {new Date(data?.data?.updatedAt).toLocaleDateString()}
+                                Updated At: {data?.data?.updatedAt ? new Date(data.data.updatedAt).toLocaleDateString() : 'N/A'}
                             </p>
                         </div>
                     </CardContent>
