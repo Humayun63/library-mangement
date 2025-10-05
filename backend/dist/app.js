@@ -10,7 +10,10 @@ const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: ['https://library-management-client-virid.vercel.app']
+    origin: [
+        'https://library-management-client-virid.vercel.app',
+        'http://128.140.110.44:8081'
+    ]
 }));
 app.use('/api/books', book_controller_1.bookRoutes);
 app.use('/api/borrow', borrow_controller_1.borrowBookRoutes);

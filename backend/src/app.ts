@@ -6,7 +6,10 @@ import cors from 'cors';
 const app : Application = express();
 app.use(express.json());
 app.use(cors({
-    origin: ['https://library-management-client-virid.vercel.app']
+    origin: [
+        'https://library-management-client-virid.vercel.app', 
+        'http://128.140.110.44:8081'
+    ]
 }));
 
 app.use('/api/books', bookRoutes);
